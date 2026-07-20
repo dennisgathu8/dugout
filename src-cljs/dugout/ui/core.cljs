@@ -37,7 +37,7 @@
 (defn app []
   [:div
    [nav]
-   [:div {:id "app" :style {:padding "2rem"}}
+   [:div {:id "dugout-content" :style {:padding "2rem"}}
     (when @(rf/subscribe [:loading])
       [:p {:style {:color "#8FB8D4"}} "Loading..."])
     (when-let [err @(rf/subscribe [:error])]

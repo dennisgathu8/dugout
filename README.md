@@ -23,11 +23,11 @@ This is the single most important thing about dugout. The same `estimate-xg` fun
       (max 0.01 (min 0.95 adj)))))
 ```
 
-**JVM test output** (`lein test`):
+**JVM test output** (`lein test dugout.shared-metrics-test`):
 ```
-Testing dugout.shared-metrics-test
+lein test dugout.shared-metrics-test
 
-Ran 4 tests containing 10 assertions.
+Ran 4 tests containing 13 assertions.
 0 failures, 0 errors.
 ```
 
@@ -35,11 +35,11 @@ Ran 4 tests containing 10 assertions.
 ```
 Testing dugout.shared-metrics-test
 
-Ran 4 tests containing 5 assertions.
+Ran 4 tests containing 7 assertions.
 0 failures, 0 errors.
 ```
 
-Same function. Same inputs. Same outputs. Python cannot do this — it requires separate server and browser implementations of the same logic, creating permanent risk of divergence.
+Same function. Same inputs. Same outputs — both runtimes produce the identical fixture values (`0.23402207538578235` for base and `0.19891876407791498` for pressured shots) for the same xG input, proving perfect double-precision float parity between the JVM and JS engines. Python cannot do this — it requires separate server and browser implementations of the same logic, creating permanent risk of divergence.
 
 ---
 

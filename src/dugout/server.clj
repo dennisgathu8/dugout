@@ -4,6 +4,7 @@
             [ring.middleware.json :refer [wrap-json-response
                                            wrap-json-body]]
             [ring.middleware.params :refer [wrap-params]]
+            [ring.middleware.content-type :refer [wrap-content-type]]
             [ring.websocket :as rws]
             [ring.util.response :as response]
             [compojure.core :refer [defroutes GET POST]]
@@ -37,7 +38,8 @@
           (catch Exception _ nil))))))
 
 (defroutes public-routes
-  (GET  "/"        [] (response/resource-response "index.html" {:root "public"}))
+  (GET  "/"        [] (-> (response/resource-response "index.html" {:root "public"})
+                          (response/content-type "text/html; charset=utf-8")))
   (POST "/api/auth/login" [] {:status 200
                                :body {:token (auth/demo-token)}})
   (GET  "/demo"    [] {:status 200
@@ -89,6 +91,7 @@
       (wrap-json-body {:keywords? true})
       wrap-json-response
       wrap-params
+      wrap-content-type
       security-headers))
 
 (defn -main [& _]

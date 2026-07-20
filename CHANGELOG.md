@@ -15,7 +15,9 @@ All notable changes to dugout will be documented in this file.
 - .cljc shared zone computation — 18-zone pitch mapping
 - .cljc shared pressing rule data structures
 - JWT authentication via buddy-auth on all protected routes
-- Content Security Policy headers on all responses
+- Content Security Policy headers strictly set to `script-src 'self'` in production; `'unsafe-eval'` conditionally allowed in development mode only (via `dev-mode` env variable) to support shadow-cljs hot-reloads
+- Added `ring.middleware.content-type/wrap-content-type` middleware to guarantee correct MIME types for served static assets (.js, .css, etc.)
+- Set explicit `text/html; charset=utf-8` Content-Type on the index `"/"` route to prevent browser MIME sniffing issues
 - WebSocket Origin validation
 - Demo mode — no real club data required
 - Synthetic squad data with fictional players
@@ -25,3 +27,4 @@ All notable changes to dugout will be documented in this file.
 - Three Architecture Decision Records (ADRs)
 - SECURITY.md documenting all security measures
 - Dev namespace with REPL convenience functions
+

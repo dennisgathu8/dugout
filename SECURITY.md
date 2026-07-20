@@ -12,13 +12,15 @@ Every API route except `POST /api/auth/login` and `GET /demo` requires a valid J
 
 ## 2. Content Security Policy Headers
 
-Every HTML response includes a strict CSP header:
+Every HTML response in production includes a strict CSP header:
 
 ```
 Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'self' ws: wss:
 ```
 
 This prevents XSS attacks by restricting script sources to the same origin. `unsafe-inline` is allowed for styles only (required for Reagent inline styles).
+
+In local development mode (when the environment flag `dev-mode` is `"true"`), `'unsafe-eval'` is appended to `script-src` to support the shadow-cljs compiler's hot-reloading mechanism.
 
 **Implementation:** `src/dugout/server.clj` — `security-headers` middleware.
 

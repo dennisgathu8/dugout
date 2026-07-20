@@ -38,6 +38,7 @@
          :env {:xtdb-data-path   "./xtdb-data"
                :jwt-secret       "dev-secret-min-32-chars-replace"
                :allowed-origin   "http://localhost:3000"
-               :demo-mode        "true"}}
+               :demo-mode        "true"
+               :dev-mode         "true"}}
    :uberjar {:aot :all
              :omit-source true}})

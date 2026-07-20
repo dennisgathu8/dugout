@@ -20,10 +20,13 @@
 
 (defn security-headers [handler]
   (fn [request]
-    (let [response (handler request)]
+    (let [response (handler request)
+          dev?     (= "true" (env :dev-mode "false"))
+          csp      (str "default-src 'self'; script-src 'self'"
+                        (when dev? " 'unsafe-eval'")
+                        "; style-src 'self' 'unsafe-inline'; connect-src 'self' ws: wss:")]
       (update response :headers merge
-              {"Content-Security-Policy"
-               "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'self' ws: wss:"
+              {"Content-Security-Policy" csp
                "X-Frame-Options" "DENY"
                "X-Content-Type-Options" "nosniff"
                "Referrer-Policy" "strict-origin-when-cross-origin"}))))
